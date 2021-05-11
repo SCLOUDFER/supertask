@@ -7,7 +7,7 @@ RUN apt update
 RUN apt install -yy git g++ cmake vim
 RUN mkdir -p ~/workspace/supertask
 WORKDIR ~/workspace/supertask
-RUN git clone https://github.com/SCLOUDFER/suptertask.git .
+RUN git clone https://github.com/SCLOUDFER/supertask.git .
 
 RUN cmake -H. -B_build -DCMAKE_INSTALL_PREFIX=_install -DBUILD_TESTS=ON
 RUN cmake --build _build --target install
