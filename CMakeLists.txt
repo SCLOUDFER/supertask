@@ -12,21 +12,21 @@
     option(BUILD_EXAMPLES "Build examples" ON)
     option(BUILD_TESTS "Build tests" ON)
 
-    project(bin)
-    set(BIN_VERSION_MAJOR 0)
-    set(BIN_VERSION_MINOR 1)
-    set(BIN_VERSION_PATCH 0)
-    set(BIN_VERSION_TWEAK 0)
-    set(BIN_VERSION
-            ${BIN_VERSION_MAJOR}.${BIN_VERSION_MINOR}.${BIN_VERSION_PATCH}.${BIN_VERSION_TWEAK})
-    set(BIN_VERSION_STRING "v${BIN_VERSION}")
+    project(div)
+    set(DIV_VERSION_MAJOR 0)
+    set(DIV_VERSION_MINOR 1)
+    set(DIV_VERSION_PATCH 0)
+    set(DIV_VERSION_TWEAK 0)
+    set(DIV_VERSION
+            ${DIV_VERSION_MAJOR}.${DIV_VERSION_MINOR}.${DIV_VERSION_PATCH}.${DIV_VERSION_TWEAK})
+    set(DIV_VERSION_STRING "v${DIV_VERSION}")
 
     hunter_add_package(GTest)
     find_package(GTest CONFIG REQUIRED)
 
-    add_library(bin STATIC ${CMAKE_CURRENT_SOURCE_DIR}/sources/bin.cpp)
+    add_library(div STATIC ${CMAKE_CURRENT_SOURCE_DIR}/sources/div.cpp)
 
-    target_include_directories(bin PUBLIC
+    target_include_directories(div PUBLIC
             $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
             $<INSTALL_INTERFACE:include>
             )
@@ -36,24 +36,24 @@
         foreach(EXAMPLE_SOURCE ${EXAMPLE_SOURCES})
             get_filename_component(EXAMPLE_NAME ${EXAMPLE_SOURCE} NAME_WE)
             add_executable(${EXAMPLE_NAME} ${EXAMPLE_SOURCE})
-            target_link_libraries(${EXAMPLE_NAME} bin)
+            target_link_libraries(${EXAMPLE_NAME} div)
             install(TARGETS ${EXAMPLE_NAME}
-                    RUNTIME DESTINATION bin
+                    RUNTIME DESTINATION div
                     )
         endforeach(EXAMPLE_SOURCE ${EXAMPLE_SOURCES})
     endif()
 
-    target_link_libraries(demo bin)
-    install(TARGETS demo RUNTIME DESTINATION bin)
+    target_link_libraries(demo div)
+    install(TARGETS demo RUNTIME DESTINATION div)
 
-    install(TARGETS bin
-            EXPORT bin-config
+    install(TARGETS div
+            EXPORT div-config
             ARCHIVE DESTINATION lib
             LIBRARY DESTINATION lib
             )
 
     install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/ DESTINATION include)
-    install(EXPORT bin-config DESTINATION cmake)
+    install(EXPORT div-config DESTINATION cmake)
 
     if(BUILD_TESTS)
         enable_testing()
